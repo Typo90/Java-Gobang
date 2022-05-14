@@ -21,56 +21,56 @@ import javax.swing.border.TitledBorder;
 
 public class GoBangFrame extends JFrame {
 
-	JButton       nudo;        //»ÚÆå
-	JButton       newGame;     //ĞÂÓÎÏ·
-	JCheckBox     showNumber;  //ÏÔÊ¾Êı×Ö
-	GoBangPanel   goBangPanel; 
-	JRadioButton  renren;      //ÈËÈË¶ÔÕ½
-	JRadioButton  renji;       //ÈË»ú¶ÔÕ½
-	JRadioButton  guZhi;       //¹ÀÖµº¯Êı
-	JRadioButton  souSuoShu;   //ËÑË÷Ê÷
-	JPanel        jPanel1;         
-	TextArea      textArea;    //ÓÒ²à¶àĞĞÎÄ±¾
+	JButton nudo; // æ‚”æ£‹
+	JButton newGame; // æ–°æ¸¸æˆ
+	JCheckBox showNumber; // æ˜¾ç¤ºæ•°å­—
+	GoBangPanel goBangPanel;
+	JRadioButton renren; // äººäººå¯¹æˆ˜
+	JRadioButton renji; // äººæœºå¯¹æˆ˜
+	JRadioButton guZhi; // ä¼°å€¼å‡½æ•°
+	JRadioButton souSuoShu; // æœç´¢æ ‘
+	JPanel jPanel1;
+	TextArea textArea; // å³ä¾§å¤šè¡Œæ–‡æœ¬
 
-	JRadioButton  human;   //ÈËÀàÏÈÊÖ
-	JRadioButton  robot;   //»úÆ÷ÏÈÊÖ
+	JRadioButton human; // äººç±»å…ˆæ‰‹
+	JRadioButton robot; // æœºå™¨å…ˆæ‰‹
 
-	JComboBox<Integer> jComboBox1;  //ËÑË÷Éî¶È
-	JComboBox<Integer> jComboBox2;  //ËÑË÷½Úµã
+	JComboBox<Integer> jComboBox1; // æœç´¢æ·±åº¦
+	JComboBox<Integer> jComboBox2; // æœç´¢èŠ‚ç‚¹
 
 	public void start() {
 		goBangPanel = new GoBangPanel();
-		this.add(goBangPanel, BorderLayout.WEST);  // ½çÃæ×ó²àÆåÅÌ
+		this.add(goBangPanel, BorderLayout.WEST); // ç•Œé¢å·¦ä¾§æ£‹ç›˜
 
-		JPanel rightPanel = new JPanel();          //½çÃæÓÒ²àµÄ¹¦ÄÜÇø
+		JPanel rightPanel = new JPanel(); // ç•Œé¢å³ä¾§çš„åŠŸèƒ½åŒº
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
-		jPanel1 = new JPanel(new BorderLayout());   // ¶àĞĞÎÄ±¾¿ò
-		jPanel1.setBorder(new TitledBorder("ÔÚ¼üÅÌÉÏµ¥»÷Êó±êÓÒ¼ü£¬²é¿´¸÷¸ö¹ÀÖµ"));
+		jPanel1 = new JPanel(new BorderLayout()); // å¤šè¡Œæ–‡æœ¬æ¡†
+		jPanel1.setBorder(new TitledBorder("åœ¨é”®ç›˜ä¸Šå•å‡»é¼ æ ‡å³é”®ï¼ŒæŸ¥çœ‹å„ä¸ªä¼°å€¼"));
 		textArea = new TextArea();
 		textArea.setEditable(false);
 		jPanel1.add(textArea);
 		rightPanel.add(jPanel1);
 
-		// Ä£Ê½
-		JPanel jPanel2 = new JPanel();      
-		jPanel2.setBorder(new TitledBorder("Ä£Ê½"));
-		ButtonGroup bg = new ButtonGroup(); // Á½¸öÑ¡¿ò»¥³â
-		renren = new JRadioButton("ÈËÈË¶ÔÕ½");
-		renji = new JRadioButton("ÈË»ú¶ÔÕ½");
-		renren.setSelected(true);           // Ä¬ÈÏÈËÈË¶ÔÕ½
+		// æ¨¡å¼
+		JPanel jPanel2 = new JPanel();
+		jPanel2.setBorder(new TitledBorder("æ¨¡å¼"));
+		ButtonGroup bg = new ButtonGroup(); // ä¸¤ä¸ªé€‰æ¡†äº’æ–¥
+		renren = new JRadioButton("äººäººå¯¹æˆ˜");
+		renji = new JRadioButton("äººæœºå¯¹æˆ˜");
+		renren.setSelected(true); // é»˜è®¤äººäººå¯¹æˆ˜
 		bg.add(renren);
 		bg.add(renji);
 		jPanel2.add(renren);
 		jPanel2.add(renji);
 		rightPanel.add(jPanel2);
 
-		// ÖÇÄÜ
-		JPanel jPanel3 = new JPanel();      
-		jPanel3.setBorder(new TitledBorder("ÖÇÄÜ"));
-		ButtonGroup bg1 = new ButtonGroup(); // »¥³â
-		guZhi = new JRadioButton("¹ÀÖµº¯Êı");
-		souSuoShu = new JRadioButton("¹ÀÖµº¯”µ+ËÑË÷˜ä");
+		// æ™ºèƒ½
+		JPanel jPanel3 = new JPanel();
+		jPanel3.setBorder(new TitledBorder("æ™ºèƒ½"));
+		ButtonGroup bg1 = new ButtonGroup(); // äº’æ–¥
+		guZhi = new JRadioButton("ä¼°å€¼å‡½æ•°");
+		souSuoShu = new JRadioButton("ä¼°å€¼å‡½æ•¸+æœç´¢æ¨¹");
 		guZhi.setSelected(true);
 		bg1.add(guZhi);
 		bg1.add(souSuoShu);
@@ -78,12 +78,12 @@ public class GoBangFrame extends JFrame {
 		jPanel3.add(souSuoShu);
 		rightPanel.add(jPanel3);
 
-		// ËÑË÷˜ä
+		// æœç´¢æ¨¹
 		JPanel jPanel4 = new JPanel();
-		jPanel4.setBorder(new TitledBorder("ËÑË÷Ê÷"));
-		JLabel jLabel1 = new JLabel("ËÑË÷Éî¶È£º");
+		jPanel4.setBorder(new TitledBorder("æœç´¢æ ‘"));
+		JLabel jLabel1 = new JLabel("æœç´¢æ·±åº¦ï¼š");
 		jComboBox1 = new JComboBox<Integer>(new Integer[] { 1, 2, 3 });
-		JLabel jLabel2 = new JLabel("Ã¿²ã½Úµã£º");
+		JLabel jLabel2 = new JLabel("æ¯å±‚èŠ‚ç‚¹ï¼š");
 		jComboBox2 = new JComboBox<Integer>(new Integer[] { 3, 5, 10 });
 		jPanel4.add(jLabel1);
 		jPanel4.add(jComboBox1);
@@ -91,29 +91,29 @@ public class GoBangFrame extends JFrame {
 		jPanel4.add(jComboBox2);
 		rightPanel.add(jPanel4);
 
-		// ÆäËû
+		// å…¶ä»–
 		JPanel jPanel5 = new JPanel();
-		nudo = new JButton("»ÚÆå");
-		jPanel5.setBorder(new TitledBorder("ÆäËû"));
-		JLabel jLabel3 = new JLabel("ÏÔÊ¾Âä×ÓË³Ğò£º");
+		nudo = new JButton("æ‚”æ£‹");
+		jPanel5.setBorder(new TitledBorder("å…¶ä»–"));
+		JLabel jLabel3 = new JLabel("æ˜¾ç¤ºè½å­é¡ºåºï¼š");
 		showNumber = new JCheckBox();
 		jPanel5.add(jLabel3);
 		jPanel5.add(showNumber);
 		showNumber.addMouseListener(mouseListener);
-		nudo.addMouseListener(mouseListener);    // Ìí¼ÓÊÂ¼ş
+		nudo.addMouseListener(mouseListener); // æ·»åŠ äº‹ä»¶
 		jPanel5.add(nudo);
 		rightPanel.add(jPanel5);
-		newGame = new JButton("ĞÂÓÎ‘ò");
+		newGame = new JButton("æ–°æ¸¸æˆ²");
 		rightPanel.add(newGame);
-		newGame.addMouseListener(mouseListener);  // Ìí¼ÓÊÂ¼ş
+		newGame.addMouseListener(mouseListener); // æ·»åŠ äº‹ä»¶
 		this.add(rightPanel);
 
-		// ÈË»úÄ£Ê½
+		// äººæœºæ¨¡å¼
 		JPanel jPanel6 = new JPanel();
-		jPanel6.setBorder(new TitledBorder("ÈË»úÄ£Ê½"));
-		ButtonGroup bg2 = new ButtonGroup(); 
-		human = new JRadioButton("ÈËÀàÏÈÊÖ");
-		robot = new JRadioButton("»úÆ÷ÏÈÊÖ");
+		jPanel6.setBorder(new TitledBorder("äººæœºæ¨¡å¼"));
+		ButtonGroup bg2 = new ButtonGroup();
+		human = new JRadioButton("äººç±»å…ˆæ‰‹");
+		robot = new JRadioButton("æœºå™¨å…ˆæ‰‹");
 		robot.setSelected(true);
 		bg2.add(human);
 		bg2.add(robot);
@@ -121,10 +121,10 @@ public class GoBangFrame extends JFrame {
 		jPanel6.add(robot);
 		rightPanel.add(jPanel6);
 
-		this.setTitle("Îå×ÓÆå");    // ±êÌâ
-		this.setSize(GoBangUtil.GAME_WIDTH, GoBangUtil.GAME_HEIGHT); // ´óĞ¡
-		this.setLocation(450, 150);   // ³õÊ¼»¯Î»ÖÃ
-		this.setResizable(false);     // ²»¿ÉÉìËõ
+		this.setTitle("äº”å­æ£‹"); // æ ‡é¢˜
+		this.setSize(GoBangUtil.GAME_WIDTH, GoBangUtil.GAME_HEIGHT); // å¤§å°
+		this.setLocation(450, 150); // åˆå§‹åŒ–ä½ç½®
+		this.setResizable(false); // ä¸å¯ä¼¸ç¼©
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
@@ -133,18 +133,18 @@ public class GoBangFrame extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Object object = e.getSource();
-			if (object == nudo) {  
+			if (object == nudo) {
 				if (renren.isSelected()) {
 					goBangPanel.huiQi();
 				} else if (renji.isSelected()) {
 					goBangPanel.huiQi2();
 				}
-			} else if (object == newGame) {   // ĞÂÓÎÏ·
+			} else if (object == newGame) { // æ–°æ¸¸æˆ
 				int level = (Integer) jComboBox1.getSelectedItem();
 				int node = (Integer) jComboBox2.getSelectedItem();
 				goBangPanel.playNewGame(showNumber.isSelected(), renren.isSelected(), renji.isSelected(), level, node,
 						guZhi.isSelected(), souSuoShu.isSelected(), textArea, robot.isSelected());
-			} else if (object == showNumber) {   // ÏÔÊ¾Êı×Ö
+			} else if (object == showNumber) { // æ˜¾ç¤ºæ•°å­—
 				goBangPanel.shouOrderNumber(showNumber.isSelected());
 			}
 		}

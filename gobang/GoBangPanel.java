@@ -20,42 +20,42 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GoBangPanel extends JPanel {
-	// µ±Ç°ÏÂÆå£¬Ò»ÎªºÚ¶şÎª°×£¬¿ªÊ¼ÎªºÚ
+	// å½“å‰ä¸‹æ£‹ï¼Œä¸€ä¸ºé»‘äºŒä¸ºç™½ï¼Œå¼€å§‹ä¸ºé»‘
 	private int currentPlayer = GoBangUtil.BLACK;
 
-	private final int CENTUEN = GoBangUtil.LINE_COUNT / 2; // ÆåÅÌÖĞĞÄ×ø±ê
+	private final int CENTUEN = GoBangUtil.LINE_COUNT / 2; // æ£‹ç›˜ä¸­å¿ƒåæ ‡
 
-	private int x = GoBangUtil.LINE_COUNT / 2; // ¼ÇÂ¼Ïß½»µãµÄ×ø±ê
+	private int x = GoBangUtil.LINE_COUNT / 2; // è®°å½•çº¿äº¤ç‚¹çš„åæ ‡
 	private int y = GoBangUtil.LINE_COUNT / 2; //
 
 	private ChessBean[][] chessBeans = new ChessBean[GoBangUtil.LINE_COUNT][GoBangUtil.LINE_COUNT];
 
 	private int count = 0;
 
-	private boolean isGameOver = true; // ¼ÇÂ¼ÓÎÏ·ÊÇ·ñ¿ªÊ¼ÁË
+	private boolean isGameOver = true; // è®°å½•æ¸¸æˆæ˜¯å¦å¼€å§‹äº†
 
-	private boolean isShowOrder = false; // ¼ÇÂ¼ÊÇ·ñÒªÏÔÊ¾Êı×Ö
+	private boolean isShowOrder = false; // è®°å½•æ˜¯å¦è¦æ˜¾ç¤ºæ•°å­—
 
-	private boolean mode; // ÈËÈËÄ£Ê½
-	private boolean inter; // ÈË»úÄ£Ê½
+	private boolean mode; // äººäººæ¨¡å¼
+	private boolean inter; // äººæœºæ¨¡å¼
 
 	private boolean guzhi;
 	private boolean souSuoShu;
 
-	int level; // ËÑË÷Éî¶È
-	int node; // Ã¿²ã½Úµã
+	int level; // æœç´¢æ·±åº¦
+	int node; // æ¯å±‚èŠ‚ç‚¹
 
 	ChessBean chessBeansForTree;
 
-	private TextArea area; // ÓÒ±ßµÄÏÔÊ¾ÎÄ±¾¿ò
+	private TextArea area; // å³è¾¹çš„æ˜¾ç¤ºæ–‡æœ¬æ¡†
 
-	public GoBangPanel() { // ¹¹Ôì·½·¨£¬³õÊ¼»¯
+	public GoBangPanel() { // æ„é€ æ–¹æ³•ï¼Œåˆå§‹åŒ–
 		this.setPreferredSize(new Dimension(GoBangUtil.PANEL_WIDTH, GoBangUtil.PANEL_HEIGHT));
-		this.setBackground(Color.ORANGE); // ÉèÖÃ±³¾°É«new Color(200, 100, 50)
-		this.addMouseMotionListener(mouseMotionListener); // Êó±êÒÆ¶¯ÊÂ¼ş
-		this.addMouseListener(mouseListener); // Êó±êµã»÷ÊÂ¼ş
+		this.setBackground(Color.ORANGE); // è®¾ç½®èƒŒæ™¯è‰²new Color(200, 100, 50)
+		this.addMouseMotionListener(mouseMotionListener); // é¼ æ ‡ç§»åŠ¨äº‹ä»¶
+		this.addMouseListener(mouseListener); // é¼ æ ‡ç‚¹å‡»äº‹ä»¶
 
-		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) { // ³õÊ¼»¯
+		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) { // åˆå§‹åŒ–
 			for (int j = 0; j < GoBangUtil.LINE_COUNT; j++) {
 				ChessBean chessBean = new ChessBean(i, j, GoBangUtil.EMPUTY, 0);
 				chessBeans[i][j] = chessBean;
@@ -63,114 +63,114 @@ public class GoBangPanel extends JPanel {
 		}
 	}
 
-	public void paintComponent(Graphics g) { // »æÖÆ
+	public void paintComponent(Graphics g) { // ç»˜åˆ¶
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setStroke(new BasicStroke(2)); // ¼Ó´ÖÏß
-		drawLine(g2d);// »­ÆåÅÌ
-		drawStar(g2d); // »­ÌìÔªºÍĞÇ
-		drawTrips(g2d, x, y); // ÌáĞÑ¿ò
-		drawNumber(g2d); // ÆåÅÌÅÔµÄ×ø±ê
-		drawChess1(g2d);// »æÖÆÆå×Ó
-		drawOrderNum(g2d); // ´òÓ¡Æå×ÓÉÏµÄÊı×Ö
+		g2d.setStroke(new BasicStroke(2)); // åŠ ç²—çº¿
+		drawLine(g2d);// ç”»æ£‹ç›˜
+		drawStar(g2d); // ç”»å¤©å…ƒå’Œæ˜Ÿ
+		drawTrips(g2d, x, y); // æé†’æ¡†
+		drawNumber(g2d); // æ£‹ç›˜æ—çš„åæ ‡
+		drawChess1(g2d);// ç»˜åˆ¶æ£‹å­
+		drawOrderNum(g2d); // æ‰“å°æ£‹å­ä¸Šçš„æ•°å­—
 	}
 
-	// »æÖÆ»­ÆåÅÌ
+	// ç»˜åˆ¶ç”»æ£‹ç›˜
 	private void drawLine(Graphics2D g2d) {
-		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) { // ºáÏß
+		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) { // æ¨ªçº¿
 			g2d.drawLine(GoBangUtil.OFFSET, GoBangUtil.OFFSET + i * GoBangUtil.CELL_WIDTH,
 					GoBangUtil.OFFSET + (15 - 1) * GoBangUtil.CELL_WIDTH,
 					GoBangUtil.OFFSET + i * GoBangUtil.CELL_WIDTH);
 		}
-		for (int i = 0; i < 15; i++) { // ÊúÏß
+		for (int i = 0; i < 15; i++) { // ç«–çº¿
 			g2d.drawLine(GoBangUtil.OFFSET + i * GoBangUtil.CELL_WIDTH, GoBangUtil.OFFSET,
 					GoBangUtil.OFFSET + i * GoBangUtil.CELL_WIDTH,
 					GoBangUtil.OFFSET + (15 - 1) * GoBangUtil.CELL_WIDTH);
 		}
 	}
 
-	// »æÖÆÌìÔªºÍĞÇ
+	// ç»˜åˆ¶å¤©å…ƒå’Œæ˜Ÿ
 	private void drawStar(Graphics2D g2d) {
-		// ÌìÔª
+		// å¤©å…ƒ
 		g2d.fillOval(GoBangUtil.LINE_COUNT / 2 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.LINE_COUNT / 2 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.STAR_WIDTH, GoBangUtil.STAR_WIDTH);
-		// ×óÉÏ½ÇµÄĞÇ
+		// å·¦ä¸Šè§’çš„æ˜Ÿ
 		g2d.fillOval(GoBangUtil.LINE_COUNT / 4 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.LINE_COUNT / 4 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.STAR_WIDTH, GoBangUtil.STAR_WIDTH);
-		// ×óÏÂ½ÇµÄĞÇ
+		// å·¦ä¸‹è§’çš„æ˜Ÿ
 		g2d.fillOval(GoBangUtil.LINE_COUNT / 4 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				(GoBangUtil.LINE_COUNT - GoBangUtil.LINE_COUNT / 4) * GoBangUtil.CELL_WIDTH - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.STAR_WIDTH, GoBangUtil.STAR_WIDTH);
-		// ÓÒÉÏ½ÇµÄĞÇ
+		// å³ä¸Šè§’çš„æ˜Ÿ
 		g2d.fillOval(
 				(GoBangUtil.LINE_COUNT - GoBangUtil.LINE_COUNT / 4) * GoBangUtil.CELL_WIDTH - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.LINE_COUNT / 4 * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.STAR_WIDTH, GoBangUtil.STAR_WIDTH);
-		// ÓÒÏÂ½ÇµÄĞÇ
+		// å³ä¸‹è§’çš„æ˜Ÿ
 		g2d.fillOval(
 				(GoBangUtil.LINE_COUNT - GoBangUtil.LINE_COUNT / 4) * GoBangUtil.CELL_WIDTH - GoBangUtil.STAR_WIDTH / 2,
 				(GoBangUtil.LINE_COUNT - GoBangUtil.LINE_COUNT / 4) * GoBangUtil.CELL_WIDTH - GoBangUtil.STAR_WIDTH / 2,
 				GoBangUtil.STAR_WIDTH, GoBangUtil.STAR_WIDTH);
 	}
 
-	// »æÖÆÆåÅÌÅÔµÄ×ø±ê
+	// ç»˜åˆ¶æ£‹ç›˜æ—çš„åæ ‡
 	private void drawNumber(Graphics2D g2d) {
 
 		for (int i = GoBangUtil.LINE_COUNT; i > 0; i--) {
 			FontMetrics fn = g2d.getFontMetrics();
 			int height = fn.getAscent();
-			g2d.drawString(16 - i + "", 10, i * GoBangUtil.CELL_WIDTH + height / 2); // ×ó±ßÊı×Ö
+			g2d.drawString(16 - i + "", 10, i * GoBangUtil.CELL_WIDTH + height / 2); // å·¦è¾¹æ•°å­—
 
-			int width = fn.stringWidth(((char) (64 + i)) + "");// ÏÂÃæµÄ×ÖÄ¸
+			int width = fn.stringWidth(((char) (64 + i)) + "");// ä¸‹é¢çš„å­—æ¯
 			g2d.drawString(((char) (64 + i)) + "", GoBangUtil.CELL_WIDTH * i - width / 2,
 					GoBangUtil.OFFSET + GoBangUtil.LINE_COUNT * GoBangUtil.CELL_WIDTH);
 		}
 
 	}
 
-	// »æÖÆÌáÊ¾¿ò
+	// ç»˜åˆ¶æç¤ºæ¡†
 	private void drawTrips(Graphics2D g2d, int i, int j) {
 		i = i * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET;
 		j = j * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET;
 		g2d.setColor(Color.red);
-		// ×óÉÏ½ÇÏòÓÒ
+		// å·¦ä¸Šè§’å‘å³
 		g2d.drawLine(i - GoBangUtil.OFFSET / 2, j - GoBangUtil.OFFSET / 2, i - GoBangUtil.OFFSET / 4,
 				j - GoBangUtil.OFFSET / 2);
-		// ×óÉÏ½ÇÏòÏÂ
+		// å·¦ä¸Šè§’å‘ä¸‹
 		g2d.drawLine(i - GoBangUtil.OFFSET / 2, j - GoBangUtil.OFFSET / 2, i - GoBangUtil.OFFSET / 2,
 				j - GoBangUtil.OFFSET / 4);
-		// ×óÏÂ½ÇÏòÓÒ
+		// å·¦ä¸‹è§’å‘å³
 		g2d.drawLine(i - GoBangUtil.OFFSET / 2, j + GoBangUtil.OFFSET / 2, i - GoBangUtil.OFFSET / 4,
 				j + GoBangUtil.OFFSET / 2);
-		// ×óÏÂ½ÇÏòÉÏ
+		// å·¦ä¸‹è§’å‘ä¸Š
 		g2d.drawLine(i - GoBangUtil.OFFSET / 2, j + GoBangUtil.OFFSET / 2, i - GoBangUtil.OFFSET / 2,
 				j + GoBangUtil.OFFSET / 4);
-		// ÓÒÉÏ½ÇÏò×ó
+		// å³ä¸Šè§’å‘å·¦
 		g2d.drawLine(i + GoBangUtil.OFFSET / 2, j - GoBangUtil.OFFSET / 2, i + GoBangUtil.OFFSET / 4,
 				j - GoBangUtil.OFFSET / 2);
-		// ÓÒÉÏ½ÇÏòÏÂ
+		// å³ä¸Šè§’å‘ä¸‹
 		g2d.drawLine(i + GoBangUtil.OFFSET / 2, j - GoBangUtil.OFFSET / 2, i + GoBangUtil.OFFSET / 2,
 				j - GoBangUtil.OFFSET / 4);
-		// ÓÒÉÏ½ÇÏò×ó
+		// å³ä¸Šè§’å‘å·¦
 		g2d.drawLine(i + GoBangUtil.OFFSET / 2, j + GoBangUtil.OFFSET / 2, i + GoBangUtil.OFFSET / 4,
 				j + GoBangUtil.OFFSET / 2);
-		// ÓÒÉÏ½ÇÏòÏÂ
+		// å³ä¸Šè§’å‘ä¸‹
 		g2d.drawLine(i + GoBangUtil.OFFSET / 2, j + GoBangUtil.OFFSET / 2, i + GoBangUtil.OFFSET / 2,
 				j + GoBangUtil.OFFSET / 4);
 		g2d.setColor(Color.black);
 	}
 
-	// »æÖÆÆå×Ó
+	// ç»˜åˆ¶æ£‹å­
 	private void drawChess1(Graphics2D g2d) {
-		int width = GoBangUtil.OFFSET / 4 * 3; // Æå×ÓµÄ¿í¶È
+		int width = GoBangUtil.OFFSET / 4 * 3; // æ£‹å­çš„å®½åº¦
 		for (ChessBean[] chessBeans2 : chessBeans) {
 			for (ChessBean chessBean : chessBeans2) {
 				if (chessBean.getPlayer() != 0) {
-					if (chessBean.getPlayer() == GoBangUtil.BLACK) { // ºÚÆåÍæ¼Ò
+					if (chessBean.getPlayer() == GoBangUtil.BLACK) { // é»‘æ£‹ç©å®¶
 						g2d.setColor(Color.BLACK);
-					} else if (chessBean.getPlayer() == GoBangUtil.WHILE) { // °×ÆåÍæ¼Ò
+					} else if (chessBean.getPlayer() == GoBangUtil.WHILE) { // ç™½æ£‹ç©å®¶
 						g2d.setColor(Color.WHITE);
 					}
 					int a = chessBean.getX() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET;
@@ -179,7 +179,7 @@ public class GoBangPanel extends JPanel {
 				}
 			}
 			if (count > 0 && !isShowOrder) {
-				g2d.setColor(Color.RED); // ×îºóÒ»¸öÆå×ÓÖĞ¼äÓĞĞ¡ºìÉ«¾ØÕó
+				g2d.setColor(Color.RED); // æœ€åä¸€ä¸ªæ£‹å­ä¸­é—´æœ‰å°çº¢è‰²çŸ©é˜µ
 				int a = getMaxNum().getX() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.CELL_WIDTH / 10;
 				int b = getMaxNum().getY() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - GoBangUtil.CELL_WIDTH / 10;
 				g2d.fillRect(a, b, GoBangUtil.CELL_WIDTH / 5, GoBangUtil.CELL_WIDTH / 5);
@@ -188,28 +188,28 @@ public class GoBangPanel extends JPanel {
 		}
 	}
 
-	// ´òÓ¡Êı×Ö
+	// æ‰“å°æ•°å­—
 	private void drawOrderNum(Graphics2D g2d) {
 		if (isShowOrder) {
-			g2d.setColor(Color.RED); // ½«Êı×ÖÉèÖÃ³ÉºìÉ«
+			g2d.setColor(Color.RED); // å°†æ•°å­—è®¾ç½®æˆçº¢è‰²
 			FontMetrics fn = g2d.getFontMetrics();
 			for (ChessBean[] chssBean2 : chessBeans) {
 				for (ChessBean chssBean : chssBean2) {
 					if (chssBean.getOrderNumber() != 0) {
-						String str = chssBean.getOrderNumber() + ""; // ½«Êı×Ö×ª»»³É×Ö·û´®
-						int width = fn.stringWidth(str); // »ñÈ¡Êı×Ö¿í¶È
+						String str = chssBean.getOrderNumber() + ""; // å°†æ•°å­—è½¬æ¢æˆå­—ç¬¦ä¸²
+						int width = fn.stringWidth(str); // è·å–æ•°å­—å®½åº¦
 						int height = fn.getHeight();
-						int x = chssBean.getX() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - width / 2; // »ñÈ¡Æå×ÓµÄÕıÖĞ¼ä
+						int x = chssBean.getX() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET - width / 2; // è·å–æ£‹å­çš„æ­£ä¸­é—´
 						int y = chssBean.getY() * GoBangUtil.CELL_WIDTH + GoBangUtil.OFFSET + height / 4;
-						g2d.drawString(chssBean.getOrderNumber() + "", x, y); // ½«Êı×Ö´òÓ¡ÔÚÆå×ÓÕıÖĞ¼ä
+						g2d.drawString(chssBean.getOrderNumber() + "", x, y); // å°†æ•°å­—æ‰“å°åœ¨æ£‹å­æ­£ä¸­é—´
 					}
 				}
 			}
 		}
-		g2d.setColor(Color.BLACK); // ½«ÑÕÉ«¸´Ô­ÎªºÚÉ«
+		g2d.setColor(Color.BLACK); // å°†é¢œè‰²å¤åŸä¸ºé»‘è‰²
 	}
 
-	// »ñµÃ×îºóÏÂµÄÒ»¿ÌÆå×Ó
+	// è·å¾—æœ€åä¸‹çš„ä¸€åˆ»æ£‹å­
 	private ChessBean getMaxNum() {
 		ChessBean tempBean = null;
 		for (ChessBean[] chssBean2 : chessBeans) {
@@ -222,16 +222,16 @@ public class GoBangPanel extends JPanel {
 		return tempBean;
 	}
 
-	// È¡µÃÌáÊ¾¿òµÄ×ø±ê
+	// å–å¾—æç¤ºæ¡†çš„åæ ‡
 	private MouseMotionListener mouseMotionListener = new MouseMotionListener() {
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			int cx = e.getX(); // »ñÈ¡Êó±êµ±Ç°×ø±ê
+			int cx = e.getX(); // è·å–é¼ æ ‡å½“å‰åæ ‡
 			int cy = e.getY();
 			if (cx >= GoBangUtil.OFFSET && cx <= GoBangUtil.OFFSET + (GoBangUtil.LINE_COUNT - 1) * GoBangUtil.CELL_WIDTH
 					&& cy >= GoBangUtil.OFFSET
-					&& cy <= GoBangUtil.OFFSET + (GoBangUtil.LINE_COUNT - 1) * GoBangUtil.CELL_WIDTH) { // ÅĞ¶ÏÊÇ·ñÔÚÆåÅÌÄÚ
-				x = (cx - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH; // ½«×ù±êµÄ×ª»»³ÉÆåÅÌÄÚÏßµÄ½»µã
+					&& cy <= GoBangUtil.OFFSET + (GoBangUtil.LINE_COUNT - 1) * GoBangUtil.CELL_WIDTH) { // åˆ¤æ–­æ˜¯å¦åœ¨æ£‹ç›˜å†…
+				x = (cx - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH; // å°†åº§æ ‡çš„è½¬æ¢æˆæ£‹ç›˜å†…çº¿çš„äº¤ç‚¹
 				y = (cy - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH;
 				repaint();
 			}
@@ -242,10 +242,10 @@ public class GoBangPanel extends JPanel {
 		}
 	};
 
-	// ¿ªÊ¼ĞÂÓÎÏ·
+	// å¼€å§‹æ–°æ¸¸æˆ
 	public void playNewGame(boolean showNumber, boolean mode, boolean inter, int level, int node, boolean guzhi,
 			boolean souSuoShu, TextArea area, boolean robot) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		this.mode = mode;
 		this.inter = inter;
 		this.level = level;
@@ -258,7 +258,7 @@ public class GoBangPanel extends JPanel {
 
 		isGameOver = false;
 		count = 0;
-		JOptionPane.showMessageDialog(GoBangPanel.this, "ÓÎÏ·ÒÑ¾­¿ªÊ¼ÁË£¡");
+		JOptionPane.showMessageDialog(GoBangPanel.this, "æ¸¸æˆå·²ç»å¼€å§‹äº†ï¼");
 		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) {
 			for (int j = 0; j < GoBangUtil.LINE_COUNT; j++) {
 				ChessBean chessBean = new ChessBean(i, j, GoBangUtil.EMPUTY, count);
@@ -276,10 +276,10 @@ public class GoBangPanel extends JPanel {
 		repaint();
 	}
 
-	// ÈËÈËÄ£Ê½»ÚÆå£¨Ò»¿ÅÒ»¿ÅµÄ»ÚÆå
+	// äººäººæ¨¡å¼æ‚”æ£‹ï¼ˆä¸€é¢—ä¸€é¢—çš„æ‚”æ£‹
 	public void huiQi() {
 		if (isGameOver) {
-			JOptionPane.showMessageDialog(GoBangPanel.this, "ÇëÏÈ¿ªÊ¼ĞÂÓÎÏ·£¡");
+			JOptionPane.showMessageDialog(GoBangPanel.this, "è¯·å…ˆå¼€å§‹æ–°æ¸¸æˆï¼");
 		} else {
 			if (count > 0) {
 				ChessBean tempBean = getMaxNum();
@@ -289,15 +289,15 @@ public class GoBangPanel extends JPanel {
 				count--;
 				repaint();
 			} else {
-				JOptionPane.showMessageDialog(GoBangPanel.this, "ÒÑ¾­ÎŞÆå×Ó¿É»ÚÁË£¡");
+				JOptionPane.showMessageDialog(GoBangPanel.this, "å·²ç»æ— æ£‹å­å¯æ‚”äº†ï¼");
 			}
 		}
 	}
-	
-	// ÈË»ú¶ÔÕ½ÖĞµÄ»ÚÆå(Ò»´Î»ÚÁ½¿Å
-	public void huiQi2() { 
+
+	// äººæœºå¯¹æˆ˜ä¸­çš„æ‚”æ£‹(ä¸€æ¬¡æ‚”ä¸¤é¢—
+	public void huiQi2() {
 		if (isGameOver) {
-			JOptionPane.showMessageDialog(GoBangPanel.this, "ÇëÏÈ¿ªÊ¼ĞÂÓÎÏ·£¡");
+			JOptionPane.showMessageDialog(GoBangPanel.this, "è¯·å…ˆå¼€å§‹æ–°æ¸¸æˆï¼");
 		} else {
 			if (count > 2) {
 				for (int i = 0; i < 2; i++) {
@@ -306,16 +306,16 @@ public class GoBangPanel extends JPanel {
 					chessBeans[tempBean.getX()][tempBean.getY()].setPlayer(GoBangUtil.EMPUTY); //
 					chessBeans[tempBean.getX()][tempBean.getY()].setOrderNumber(0);
 					count--;
-					System.out.println("»ÚÆå");
+					System.out.println("æ‚”æ£‹");
 					repaint();
 				}
 			} else {
-				JOptionPane.showMessageDialog(GoBangPanel.this, "Äã»¹Ã»ÏÂÆåÄØ£¡");
+				JOptionPane.showMessageDialog(GoBangPanel.this, "ä½ è¿˜æ²¡ä¸‹æ£‹å‘¢ï¼");
 			}
 		}
 	}
-	
-	// ÔÚÆå×ÓÉÏÏÔÊ¾Êı×Ö
+
+	// åœ¨æ£‹å­ä¸Šæ˜¾ç¤ºæ•°å­—
 	public void shouOrderNumber(boolean showNumber) {
 		isShowOrder = showNumber;
 		repaint();
@@ -324,41 +324,41 @@ public class GoBangPanel extends JPanel {
 	private MouseListener mouseListener = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			if (isGameOver) {
-				JOptionPane.showMessageDialog(GoBangPanel.this, "Çë¿ªÊ¼ĞÂµÄÓÎÏ·");
+				JOptionPane.showMessageDialog(GoBangPanel.this, "è¯·å¼€å§‹æ–°çš„æ¸¸æˆ");
 				return;
 			}
 
-			int cx = e.getX(); // »ñÈ¡Êó±êµ±Ç°×ø±ê
+			int cx = e.getX(); // è·å–é¼ æ ‡å½“å‰åæ ‡
 			int cy = e.getY();
-			int a = (cx - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH; // ½«×ù±êµÄ×ª»»³ÉÆåÅÌÄÚÏßµÄ½»µã
+			int a = (cx - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH; // å°†åº§æ ‡çš„è½¬æ¢æˆæ£‹ç›˜å†…çº¿çš„äº¤ç‚¹
 			int b = (cy - GoBangUtil.OFFSET / 2) / GoBangUtil.CELL_WIDTH;
 
-			if (e.getButton() == MouseEvent.BUTTON1) { // Êó±ê×ó¼ü
-				if (mode) { // ÈËÈËŒ¦‘ğÄ£Ê½
-					if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // ÅĞ¶ÏÊÇ·ñÔÚÆåÅÌÄÚ
-						if (chessBeans[a][b].getPlayer() == 0) { // ÅĞ¶Ï¸ÃµãÊÇ·ñÓĞÆå
+			if (e.getButton() == MouseEvent.BUTTON1) { // é¼ æ ‡å·¦é”®
+				if (mode) { // äººäººå°æˆ°æ¨¡å¼
+					if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // åˆ¤æ–­æ˜¯å¦åœ¨æ£‹ç›˜å†…
+						if (chessBeans[a][b].getPlayer() == 0) { // åˆ¤æ–­è¯¥ç‚¹æ˜¯å¦æœ‰æ£‹
 							count++;
 							ChessBean chessBean = new ChessBean(a, b, currentPlayer, count);
-							currentPlayer = 3 - currentPlayer; // ºÚÆåÏÂÒ»²½Îª°×Æì
-							chessBeans[a][b] = chessBean; // ´¢´æµ±Ç°Íæ¼ÒÆå×ÓĞÅÏ¢
+							currentPlayer = 3 - currentPlayer; // é»‘æ£‹ä¸‹ä¸€æ­¥ä¸ºç™½æ——
+							chessBeans[a][b] = chessBean; // å‚¨å­˜å½“å‰ç©å®¶æ£‹å­ä¿¡æ¯
 							if (chessBeans[a][b].getPlayer() != 0)
 								System.out.println(
-										chessBeans[x][y].getPlayer() == GoBangUtil.BLACK ? "ºÚ×ÓÏÂÆåÍê±Ï" : "°××ÓÏÂÆåÍê±Ï");
+										chessBeans[x][y].getPlayer() == GoBangUtil.BLACK ? "é»‘å­ä¸‹æ£‹å®Œæ¯•" : "ç™½ä¸‹æ£‹å®Œæ¯•");
 							checkWin(a, b, chessBeans[a][b].getPlayer());
 						}
 					}
-				} else if (inter) {// ÈË™CŒ¦‘ğ,
-					if (guzhi) { // ¹ÀÖµº¯Êı
-						if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // ÅĞ¶ÏÊÇ·ñÔÚÆåÅÌÄÚ
-							if (chessBeans[a][b].getPlayer() == 0) { // ÅĞ¶Ï¸ÃµãÊÇ·ñÓÉÆå
+				} else if (inter) {// äººæ©Ÿå°æˆ°,
+					if (guzhi) { // ä¼°å€¼å‡½æ•°
+						if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // åˆ¤æ–­æ˜¯å¦åœ¨æ£‹ç›˜å†…
+							if (chessBeans[a][b].getPlayer() == 0) { // åˆ¤æ–­è¯¥ç‚¹æ˜¯å¦ç”±æ£‹
 								count++;
 								chessBeans[a][b] = new ChessBean(a, b, currentPlayer, count);
-								System.out.println("°××ÓÏÂÆåÍê±Ï");
+								System.out.println("ç™½å­ä¸‹æ£‹å®Œæ¯•");
 								currentPlayer = 3 - currentPlayer;
 								checkWin(a, b, chessBeans[a][b].getPlayer());
 								repaint();
 								if (!checkWin(a, b, chessBeans[a][b].getPlayer())) {
-									// µçÄÔÏÂÆå£¬ÕÒµ½¹ÀÖµ×î´óµÄ
+									// ç”µè„‘ä¸‹æ£‹ï¼Œæ‰¾åˆ°ä¼°å€¼æœ€å¤§çš„
 									List<ChessBean> orderList = getSortList(currentPlayer, chessBeans);
 									ChessBean bean = orderList.get(0);
 									count++;
@@ -367,32 +367,32 @@ public class GoBangPanel extends JPanel {
 									bean.setPlayer(currentPlayer);
 									bean.setOrderNumber(count);
 									chessBeans[a][b] = bean;
-									System.out.println("ºÚ×Ó£¨µçÄÔ£©ÏÂÆåÍê±Ï");
+									System.out.println("é»‘å­ï¼ˆç”µè„‘ï¼‰ä¸‹æ£‹å®Œæ¯•");
 									currentPlayer = 3 - currentPlayer;
 									checkWin(a, b, chessBeans[a][b].getPlayer());
 								}
 							}
 						}
-					} else if (souSuoShu) { // ¹ÀÖµº¯Êı¼ÓËÑË÷Ê÷
-						if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // ÅĞ¶ÏÊÇ·ñÔÚÆåÅÌÄÚ
-							if (chessBeans[a][b].getPlayer() == 0) { // ÅĞ¶Ï¸ÃµãÊÇ·ñÓÉÆä×Ó
+					} else if (souSuoShu) { // ä¼°å€¼å‡½æ•°åŠ æœç´¢æ ‘
+						if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // åˆ¤æ–­æ˜¯å¦åœ¨æ£‹ç›˜å†…
+							if (chessBeans[a][b].getPlayer() == 0) { // åˆ¤æ–­è¯¥ç‚¹æ˜¯å¦ç”±å…¶å­
 								count++;
 								chessBeans[a][b] = new ChessBean(a, b, currentPlayer, count);
-								System.out.println("°××ÓÏÂÆåÍê±Ï");
+								System.out.println("ç™½å­ä¸‹æ£‹å®Œæ¯•");
 								currentPlayer = 3 - currentPlayer;
 								repaint();
 								if (!checkWin(a, b, chessBeans[a][b].getPlayer())) {
-									// µçÄÔÏÂÆå£¬ÕÒµ½¹ÀÖµ×î´óµÄ
+									// ç”µè„‘ä¸‹æ£‹ï¼Œæ‰¾åˆ°ä¼°å€¼æœ€å¤§çš„
 									ChessBean bean;
 
-//									if (level == 3 && node >= 5 && count < 5) { // ´¿ÊôÎªÁË¼õÉÙÇ°Ãæ¼¸²½µçÄÔËùÓÃµÄÊ±¼ä
-//										List<ChessBean> orderList = getSortList(currentPlayer, chessBeans);
-//										bean = orderList.get(0);
-//									} else {
-//										getValueByTrees2(0, currentPlayer, chessBeans, -Integer.MAX_VALUE,
-//												Integer.MAX_VALUE);
-//										bean = chessBeansForTree;
-//									}
+									// if (level == 3 && node >= 5 && count < 5) { // çº¯å±ä¸ºäº†å‡å°‘å‰é¢å‡ æ­¥ç”µè„‘æ‰€ç”¨çš„æ—¶é—´
+									// List<ChessBean> orderList = getSortList(currentPlayer, chessBeans);
+									// bean = orderList.get(0);
+									// } else {
+									// getValueByTrees2(0, currentPlayer, chessBeans, -Integer.MAX_VALUE,
+									// Integer.MAX_VALUE);
+									// bean = chessBeansForTree;
+									// }
 									getValueByTrees2(0, GoBangUtil.BLACK, chessBeans, -Integer.MAX_VALUE,
 											Integer.MAX_VALUE);
 									bean = chessBeansForTree;
@@ -402,7 +402,7 @@ public class GoBangPanel extends JPanel {
 									bean.setPlayer(currentPlayer);
 									bean.setOrderNumber(count);
 									chessBeans[a][b] = bean;
-									System.out.println("ºÚ×Ó(Ç¿µçÄÔ)ÏÂÆåÍê±Ï");
+									System.out.println("é»‘å­(å¼ºç”µè„‘)ä¸‹æ£‹å®Œæ¯•");
 									// System.out.println(bean);
 									currentPlayer = 3 - currentPlayer;
 									checkWin(a, b, chessBeans[a][b].getPlayer());
@@ -413,15 +413,15 @@ public class GoBangPanel extends JPanel {
 					}
 				}
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				// ÓÒ¼ü
-				if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // ÅĞ¶ÏÊÇ·ñÔÚÆåÅÌÄÚ
+				// å³é”®
+				if (a >= 0 && a < GoBangUtil.LINE_COUNT && b >= 0 && b < GoBangUtil.LINE_COUNT) { // åˆ¤æ–­æ˜¯å¦åœ¨æ£‹ç›˜å†…
 					ChessBean[][] temBeans = GoBangPanel.this.clone(chessBeans);
 					int offense = getValue(a, b, currentPlayer, temBeans);
-					// ¼ÆËã¸Ãµã¶Ô¶ÔÊÖµÄ¼ÛÖµ
+					// è®¡ç®—è¯¥ç‚¹å¯¹å¯¹æ‰‹çš„ä»·å€¼
 					int defentse = getValue(a, b, 3 - currentPlayer, temBeans);
 
-					temBeans[a][b].getBuffer().append("µã(" + (a + 1) + "," + (b - 1) + ")µÄ" + "¹¥»÷:" + offense + " "
-							+ "·ÀÓù:" + defentse + " " + "×ÜºÍ:" + (defentse + offense) + "\n\n");
+					temBeans[a][b].getBuffer().append("ç‚¹(" + (a + 1) + "," + (b - 1) + ")çš„" + "æ”»å‡»:" + offense + " "
+							+ "é˜²å¾¡:" + defentse + " " + "æ€»å’Œ:" + (defentse + offense) + "\n\n");
 					area.append(temBeans[a][b].getBuffer().toString());
 					// }
 
@@ -435,34 +435,34 @@ public class GoBangPanel extends JPanel {
 		ChessBean[][] temBeans = clone(chessBeans2);
 		List<ChessBean> orderList = getSortList(player, temBeans);
 		if (d == level) {
-			// ´ïµ½ËÑË÷Ö¸¶¨Éî¶È£¬½áÊø¡£·µ»Øµ±Ç°²½ÖèÖĞ¡£»ñÈ¡µ½µÄ¹ÀÖµ×î¸ßµÄµã¡£
+			// è¾¾åˆ°æœç´¢æŒ‡å®šæ·±åº¦ï¼Œç»“æŸã€‚è¿”å›å½“å‰æ­¥éª¤ä¸­ã€‚è·å–åˆ°çš„ä¼°å€¼æœ€é«˜çš„ç‚¹ã€‚
 			return orderList.get(0).getSum();
 		}
-		// ±éÀúµ±Ç°ÆåÅÌÉÏËùÓĞ¿ÕÓàµÄÎ»ÖÃ£¨±éÀúgetSortList£©
+		// éå†å½“å‰æ£‹ç›˜ä¸Šæ‰€æœ‰ç©ºä½™çš„ä½ç½®ï¼ˆéå†getSortListï¼‰
 		for (int i = 0; i < node; i++) {
 			ChessBean bean = orderList.get(0);
 			int score;
 			if (bean.getSum() > Level.ALIVE_4.score) {
-				// ÕÒµ½Ä¿±ê
+				// æ‰¾åˆ°ç›®æ ‡
 				score = bean.getSum();
 			} else {
-				// Õâ¸ö²½ÖèÊÇÄ£ÄâÏÂÆå¡£²»ÄÜÔÙÕæÕıµÄÆåÅÌÉÏ½øĞĞÂä×Ó
+				// è¿™ä¸ªæ­¥éª¤æ˜¯æ¨¡æ‹Ÿä¸‹æ£‹ã€‚ä¸èƒ½å†çœŸæ­£çš„æ£‹ç›˜ä¸Šè¿›è¡Œè½å­
 				temBeans[bean.getX()][bean.getY()].setPlayer(player);
 				// temBeans[bean.getX()][bean.getY()] = bean;
 				score = getValueByTrees2(d + 1, 3 - player, temBeans, alpha, beta);
 			}
 			if (d % 2 == 0) {
-				// ×Ô¼º£¬ÕÒ×î´óÖµ
+				// è‡ªå·±ï¼Œæ‰¾æœ€å¤§å€¼
 				if (score > alpha) {
 					alpha = score;
 					if (d == 0) {
-						// ½á¹û
+						// ç»“æœ
 						chessBeansForTree = bean;
 						// System.out.println(chessBeansForTree);
 					}
 				}
 				if (alpha >= beta) {
-					// ¼ôÖ¦
+					// å‰ªæ
 					score = alpha;
 					return score;
 				}
@@ -471,7 +471,7 @@ public class GoBangPanel extends JPanel {
 					beta = score;
 				}
 				if (alpha >= beta) {
-					// ¼ôÖ¦
+					// å‰ªæ
 					score = beta;
 					return score;
 				}
@@ -484,16 +484,16 @@ public class GoBangPanel extends JPanel {
 		ChessBean[][] tempBeans = clone(chessBeans);
 		List<ChessBean> orderList = getSortList(player, tempBeans);
 		if (d == level) {
-			return orderList.get(0); // ´ïµ½ËÑË÷Ö¸¶¨Éî¶È£¬½áÊø¡£·µ»Øµ±Ç°²½ÖèÖĞ¡£»ñÈ¡µ½µÄ¹ÀÖµ×î¸ßµÄµã¡£
+			return orderList.get(0); // è¾¾åˆ°æœç´¢æŒ‡å®šæ·±åº¦ï¼Œç»“æŸã€‚è¿”å›å½“å‰æ­¥éª¤ä¸­ã€‚è·å–åˆ°çš„ä¼°å€¼æœ€é«˜çš„ç‚¹ã€‚
 		}
 		for (int i = 0; i < orderList.size(); i++) {
-			// ±éÀúµ±Ç°ÆåÅÌÉÏËùÓĞ¿ÕÓàµÄÎ»ÖÃ£¨±éÀúgetSortList£©
+			// éå†å½“å‰æ£‹ç›˜ä¸Šæ‰€æœ‰ç©ºä½™çš„ä½ç½®ï¼ˆéå†getSortListï¼‰
 			System.out.println("i" + i);
 			ChessBean bean = orderList.get(i);
 			if (bean.getSum() > Level.ALIVE_4.score) {
 				return bean;
 			} else {
-				// Õâ¸ö²½ÖèÊÇÄ£ÄâÏÂÆå¡£²»ÄÜÔÙÕæÕıµÄÆåÅÌÉÏ½øĞĞÂä×Ó
+				// è¿™ä¸ªæ­¥éª¤æ˜¯æ¨¡æ‹Ÿä¸‹æ£‹ã€‚ä¸èƒ½å†çœŸæ­£çš„æ£‹ç›˜ä¸Šè¿›è¡Œè½å­
 				tempBeans[bean.getX()][bean.getY()].setPlayer(player);
 				return getValueByTrees(d + 1, 3 - player, tempBeans);
 			}
@@ -501,7 +501,7 @@ public class GoBangPanel extends JPanel {
 		return null;
 	}
 
-	private ChessBean[][] clone(ChessBean[][] chessBeans2) { // ¿ËÂ¡Æå±PÉÏËùÓĞÆå×Ó
+	private ChessBean[][] clone(ChessBean[][] chessBeans2) { // å…‹éš†æ£‹ç›¤ä¸Šæ‰€æœ‰æ£‹å­
 		ChessBean[][] temBeans = new ChessBean[GoBangUtil.LINE_COUNT][GoBangUtil.LINE_COUNT];
 		for (int i = 0; i < GoBangUtil.LINE_COUNT; i++) {
 			for (int j = 0; j < GoBangUtil.LINE_COUNT; j++) {
@@ -512,30 +512,30 @@ public class GoBangPanel extends JPanel {
 		return temBeans;
 	}
 
-	// ¼ÆËã¿ÕÓàÎ´ÖªµÄ¹ÀÖµ£¬È»ºóÅÅĞò
+	// è®¡ç®—ç©ºä½™æœªçŸ¥çš„ä¼°å€¼ï¼Œç„¶åæ’åº
 	private List<ChessBean> getSortList(int player, ChessBean[][] tempBeans) { // <ChessBean>
 
 		List<ChessBean> list = new ArrayList<>();
 		for (ChessBean[] chessBeans2 : tempBeans) {
 			for (ChessBean chessBean : chessBeans2) {
-				// ÕÒ¿Õµã
+				// æ‰¾ç©ºç‚¹
 				if (chessBean.getPlayer() == 0) {
-					// ¼ÆËã¸Ãµã¶Ô×Ô¼ºµÄ¼ÛÖµ
+					// è®¡ç®—è¯¥ç‚¹å¯¹è‡ªå·±çš„ä»·å€¼
 					int offense = getValue(chessBean.getX(), chessBean.getY(), player, tempBeans);
-					// ¼ÆËã¸Ãµã¶Ô¶ÔÊÖµÄ¼ÛÖµ
+					// è®¡ç®—è¯¥ç‚¹å¯¹å¯¹æ‰‹çš„ä»·å€¼
 					int defentse = getValue(chessBean.getX(), chessBean.getY(), 3 - player, tempBeans);
-					chessBean.setOffense(offense); // »ñÈ¡¸ÃµãµÄ¹¥»÷¼ÛÖµ
-					chessBean.setDefentse(defentse); // »ñÈ¡¸ÃµãµÄ·ÀÓù¼ÛÖµ
-					chessBean.setSum(offense + defentse); // »ñÈ¡¸ÃµãµÄ×Ü¼ÛÖµ
+					chessBean.setOffense(offense); // è·å–è¯¥ç‚¹çš„æ”»å‡»ä»·å€¼
+					chessBean.setDefentse(defentse); // è·å–è¯¥ç‚¹çš„é˜²å¾¡ä»·å€¼
+					chessBean.setSum(offense + defentse); // è·å–è¯¥ç‚¹çš„æ€»ä»·å€¼
 					list.add(chessBean);
 				}
 			}
 		}
-		Collections.sort(list); // ¸ù¾İ×Ü¼ÛÖµ½µĞòÅÅĞò
+		Collections.sort(list); // æ ¹æ®æ€»ä»·å€¼é™åºæ’åº
 		return list;
 	}
 
-	// ¼ÆËãËÄ¸ö·½ÏòµÄÆåĞÍ£¬»ñÈ¡Level
+	// è®¡ç®—å››ä¸ªæ–¹å‘çš„æ£‹å‹ï¼Œè·å–Level
 	private int getValue(int x2, int y2, int player, ChessBean[][] tempBeans) {
 		Level level1 = getLevel(x2, y2, Direction.HENG, player, tempBeans);
 		Level level2 = getLevel(x2, y2, Direction.SHU, player, tempBeans);
@@ -544,13 +544,13 @@ public class GoBangPanel extends JPanel {
 		return levelScore(level1, level2, level3, level4) + position[x2][y2];
 	}
 
-	// ¼ÆËãÆåĞÍµÄ·ÖÖµ
+	// è®¡ç®—æ£‹å‹çš„åˆ†å€¼
 	private int levelScore(Level level1, Level level2, Level level3, Level level4) {
 		int[] levelCount = new int[Level.values().length];
 		for (int i = 0; i < Level.values().length; i++) {
 			levelCount[i] = 0;
 		}
-		// Í³¼ÆÄ³Ò»¸öÆåĞÍ³öÏÖµÄ´ÎÊı
+		// ç»Ÿè®¡æŸä¸€ä¸ªæ£‹å‹å‡ºç°çš„æ¬¡æ•°
 		levelCount[level1.index]++;
 		levelCount[level2.index]++;
 		levelCount[level3.index]++;
@@ -558,15 +558,15 @@ public class GoBangPanel extends JPanel {
 
 		int score = 0;
 		if (levelCount[Level.GO_4.index] >= 2
-				|| levelCount[Level.GO_4.index] >= 1 && levelCount[Level.ALIVE_3.index] >= 1)// Ë«»î4£¬³å4»îÈı
+				|| levelCount[Level.GO_4.index] >= 1 && levelCount[Level.ALIVE_3.index] >= 1)// åŒæ´»4ï¼Œå†²4æ´»ä¸‰
 			score = 10000;
-		else if (levelCount[Level.ALIVE_3.index] >= 2)// Ë«»î3
+		else if (levelCount[Level.ALIVE_3.index] >= 2)// åŒæ´»3
 			score = 5000;
-		else if (levelCount[Level.SLEEP_3.index] >= 1 && levelCount[Level.ALIVE_3.index] >= 1)// »î3Ãß3
+		else if (levelCount[Level.SLEEP_3.index] >= 1 && levelCount[Level.ALIVE_3.index] >= 1)// æ´»3çœ 3
 			score = 1000;
-		else if (levelCount[Level.ALIVE_2.index] >= 2)// Ë«»î2
+		else if (levelCount[Level.ALIVE_2.index] >= 2)// åŒæ´»2
 			score = 100;
-		else if (levelCount[Level.SLEEP_2.index] >= 1 && levelCount[Level.ALIVE_2.index] >= 1)// »î2Ãß2
+		else if (levelCount[Level.SLEEP_2.index] >= 1 && levelCount[Level.ALIVE_2.index] >= 1)// æ´»2çœ 2
 			score = 10;
 		score = Math.max(score, Math.max(Math.max(level1.score, level2.score), Math.max(level3.score, level4.score)));
 		return score;
@@ -596,16 +596,16 @@ public class GoBangPanel extends JPanel {
 
 		tempBeans[x2][y2].getBuffer().append("(" + (x2 + 1) + "," + (y2 - 1) + ")" + direction + "\t" + str + "\t");
 
-		// »ñÈ¡ÆåĞÍµÄµ¹ÖÃ×Ö·û´®
+		// è·å–æ£‹å‹çš„å€’ç½®å­—ç¬¦ä¸²
 		String rstr = new StringBuilder(str).reverse().toString();
-		// ¸ù¾İstrºÍrstrÈ¥LevelÀï½øĞĞÆåĞÍÆ¥Åä
+		// æ ¹æ®strå’Œrstrå»Levelé‡Œè¿›è¡Œæ£‹å‹åŒ¹é…
 		for (Level level : Level.values()) {
 			Pattern pat = Pattern.compile(level.regex[player - 1]);
-			Matcher mat = pat.matcher(str); // Õı
-			// Èç¹ûÊÇtrueÔòÆ¥Åä³É¹¦
+			Matcher mat = pat.matcher(str); // æ­£
+			// å¦‚æœæ˜¯trueåˆ™åŒ¹é…æˆåŠŸ
 			boolean r1 = mat.find();
-			mat = pat.matcher(rstr); // ·´
-			// Èç¹ûÊÇtrueÔòÆ¥Åä³É¹¦
+			mat = pat.matcher(rstr); // å
+			// å¦‚æœæ˜¯trueåˆ™åŒ¹é…æˆåŠŸ
 			boolean r2 = mat.find();
 			if (r1 || r2) {
 				tempBeans[x2][y2].getBuffer().append(level.name + "\n");
@@ -618,7 +618,7 @@ public class GoBangPanel extends JPanel {
 		return Level.NULL;
 	}
 
-	// ´Ó(x,y)³ö·¢£¬ÓĞ8¸ö·½ÏòµÄÏß£¬4¸ö±£³ÖÔ­ÓĞ¡£4¸ö×Ö·û´®Ê×Î²µ÷»»
+	// ä»(x,y)å‡ºå‘ï¼Œæœ‰8ä¸ªæ–¹å‘çš„çº¿ï¼Œ4ä¸ªä¿æŒåŸæœ‰ã€‚4ä¸ªå­—ç¬¦ä¸²é¦–å°¾è°ƒæ¢
 	private String getStringSeq(int x2, int y2, int i, int j, int player, ChessBean[][] tempBeans) {
 		String sum = "";
 		boolean isRight = false;
@@ -639,21 +639,21 @@ public class GoBangPanel extends JPanel {
 		return sum;
 	}
 
-	// ¼ì²éÊÇ·ñÓĞÎå×ÓÏàÁ¬
+	// æ£€æŸ¥æ˜¯å¦æœ‰äº”å­ç›¸è¿
 	protected boolean checkWin(int x2, int y2, int player) {
 		boolean win = false;
-		if (check(x2, y2, 1, 0, player) + check(x2, y2, -1, 0, player) >= 4) {// ¼ì²éºáÊÇ·ñÓĞÎå×ÓÏàÁ¬
+		if (check(x2, y2, 1, 0, player) + check(x2, y2, -1, 0, player) >= 4) {// æ£€æŸ¥æ¨ªæ˜¯å¦æœ‰äº”å­ç›¸è¿
 			win = true;
-		} else if (check(x2, y2, 0, 1, player) + check(x2, y2, 0, -1, player) >= 4) {// ¼ì²éÊúÊÇ·ñÓĞÎå×ÓÏàÁ¬
+		} else if (check(x2, y2, 0, 1, player) + check(x2, y2, 0, -1, player) >= 4) {// æ£€æŸ¥ç«–æ˜¯å¦æœ‰äº”å­ç›¸è¿
 			win = true;
-		} else if (check(x2, y2, 1, 1, player) + check(x2, y2, -1, -1, player) >= 4) {// ¼ì²éºáÊÇ·ñÓĞÎå×ÓÏàÁ¬
+		} else if (check(x2, y2, 1, 1, player) + check(x2, y2, -1, -1, player) >= 4) {// æ£€æŸ¥æ¨ªæ˜¯å¦æœ‰äº”å­ç›¸è¿
 			win = true;
-		} else if (check(x2, y2, -1, 1, player) + check(x2, y2, 1, -1, player) >= 4) {// ¼ì²éºáÊÇ·ñÓĞÎå×ÓÏàÁ¬
+		} else if (check(x2, y2, -1, 1, player) + check(x2, y2, 1, -1, player) >= 4) {// æ£€æŸ¥æ¨ªæ˜¯å¦æœ‰äº”å­ç›¸è¿
 			win = true;
 		}
 		if (win) {
 			// if(player==1)
-			JOptionPane.showMessageDialog(GoBangPanel.this, "ÓÎÏ·ÒÑ¾­½áÊø");
+			JOptionPane.showMessageDialog(GoBangPanel.this, "æ¸¸æˆå·²ç»ç»“æŸ");
 			isGameOver = true;
 			return true;
 		}
@@ -661,7 +661,7 @@ public class GoBangPanel extends JPanel {
 	}
 
 	private int check(int x2, int y2, int i, int j, int player) {
-		// ÏòÄ³¸ö·½Ïò£¨i, j£©¼ì²é4¸öÆå×Ó¡£
+		// å‘æŸä¸ªæ–¹å‘ï¼ˆi, jï¼‰æ£€æŸ¥4ä¸ªæ£‹å­ã€‚
 		int sum = 0;
 		for (int k = 0; k < 4; k++) {
 			x2 += i;
@@ -677,29 +677,30 @@ public class GoBangPanel extends JPanel {
 		return sum;
 	}
 
-	// ÆåĞÍĞÅÏ¢
+	// æ£‹å‹ä¿¡æ¯
 	public static enum Level {
-		CON_5("³¤Á¬", 0, new String[] { "11111", "22222" }, 100000),
-		ALIVE_4("»îËÄ", 1, new String[] { "011110", "022220" }, 10000),
-		GO_4("³åËÄ", 2, new String[] { "011112|0101110|0110110", "022221|0202220|0220220" }, 500),
-		DEAD_4("ËÀËÄ", 3, new String[] { "211112", "122221" }, -5),
-		ALIVE_3("»îÈı", 4, new String[] { "01110|010110", "02220|020220" }, 200),
-		SLEEP_3("ÃßÈı", 5,
+		CON_5("é•¿è¿", 0, new String[] { "11111", "22222" }, 100000),
+		ALIVE_4("æ´»å››", 1, new String[] { "011110", "022220" }, 10000),
+		GO_4("å†²å››", 2, new String[] { "011112|0101110|0110110", "022221|0202220|0220220" }, 500),
+		DEAD_4("æ­»å››", 3, new String[] { "211112", "122221" }, -5),
+		ALIVE_3("æ´»ä¸‰", 4, new String[] { "01110|010110", "02220|020220" }, 200),
+		SLEEP_3("çœ ä¸‰", 5,
 				new String[] { "001112|010112|011012|10011|10101|2011102", "002221|020221|022021|20022|20202|1022201" },
 				50),
-		DEAD_3("ËÀÈı", 6, new String[] { "21112", "12221" }, -5),
-		ALIVE_2("»î¶ş", 7, new String[] { "00110|01010|010010", "00220|02020|020020" }, 5),
-		SLEEP_2("Ãß¶ş", 8,
+		DEAD_3("æ­»ä¸‰", 6, new String[] { "21112", "12221" }, -5),
+		ALIVE_2("æ´»äºŒ", 7, new String[] { "00110|01010|010010", "00220|02020|020020" }, 5),
+		SLEEP_2("çœ äºŒ", 8,
 				new String[] { "000112|001012|010012|10001|2010102|2011002",
 						"000221|002021|020021|20002|1020201|1022001" },
 				3),
-		DEAD_2("ËÀ¶ş", 9, new String[] { "2112", "1221" }, -5), NULL("null", 10, new String[] { "", "" }, 0);
+		DEAD_2("æ­»äºŒ", 9, new String[] { "2112", "1221" }, -5), NULL("null", 10, new String[] { "", "" }, 0);
+
 		private String name;
 		private int index;
-		private String[] regex;// ÕıÔò±í´ïÊ½
-		int score;// ·ÖÖµ
+		private String[] regex;// æ­£åˆ™è¡¨è¾¾å¼
+		int score;// åˆ†å€¼
 
-		// ¹¹Ôì·½·¨
+		// æ„é€ æ–¹æ³•
 		private Level(String name, int index, String[] regex, int score) {
 			this.name = name;
 			this.index = index;
@@ -707,36 +708,34 @@ public class GoBangPanel extends JPanel {
 			this.score = score;
 		}
 
-		// ¸²¸Ç·½·¨
+		// è¦†ç›–æ–¹æ³•
 		@Override
 		public String toString() {
 			return this.name;
 		}
 	};
 
-	// ·½Ïò
+	// æ–¹å‘
 	private static enum Direction {
 		HENG, SHU, PIE, NA
 	};
 
-	// Î»ÖÃ·Ö
-	private static int[][] position = { 
+	// ä½ç½®åˆ†
+	private static int[][] position = {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
 			{ 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0 },
 			{ 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 0 },
 			{ 0, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1, 0 },
-			{ 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 4, 3, 2, 1, 0 }, 
+			{ 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 4, 3, 2, 1, 0 },
 			{ 0, 1, 2, 3, 4, 5, 6, 6, 6, 5, 4, 3, 2, 1, 0 },
-			{ 0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0 }, 
+			{ 0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0 },
 			{ 0, 1, 2, 3, 4, 5, 6, 6, 6, 5, 4, 3, 2, 1, 0 },
-			{ 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 4, 3, 2, 1, 0 }, 
+			{ 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 4, 3, 2, 1, 0 },
 			{ 0, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1, 0 },
-			{ 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 0 }, 
+			{ 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 0 },
 			{ 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0 },
-			{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }, 
+			{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
-
-	
 
 }

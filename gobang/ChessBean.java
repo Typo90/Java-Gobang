@@ -1,18 +1,18 @@
 package gobang;
 
-public class ChessBean  implements Comparable<ChessBean>{
+public class ChessBean implements Comparable<ChessBean> {
 
-	private int x; // Æå×Óºá×ø±ê
-	private int y;// Æå×Ó×İ×ø±ê
-	private int orderNumber; // ¼ÇÂ¼Æå×ÓÊÇµÚ¼¸²¿µÄ
-	private int player;  //Æå×ÓÑÕÉ«£¬1ÊÇºÚ£¬¶şÊÇ°×,0ÊÇÎŞÆå×Ó
-	
-	private int offense;  //¹¥»÷·Ö
-	private int defentse;  //·ÀÓù·Ö
-	private int sum;   //×Ü·Ö
-	
+	private int x; // æ£‹å­æ¨ªåæ ‡
+	private int y;// æ£‹å­çºµåæ ‡
+	private int orderNumber; // è®°å½•æ£‹å­æ˜¯ç¬¬å‡ éƒ¨çš„
+	private int player; // æ£‹å­é¢œè‰²ï¼Œ1æ˜¯é»‘ï¼ŒäºŒæ˜¯ç™½,0æ˜¯æ— æ£‹å­
+
+	private int offense; // æ”»å‡»åˆ†
+	private int defentse; // é˜²å¾¡åˆ†
+	private int sum; // æ€»åˆ†
+
 	private StringBuffer buffer = new StringBuffer();
-	
+
 	@Override
 	public String toString() {
 		return "ChessBean [x=" + x + ", y=" + y + ", orderNumber=" + orderNumber + ", player=" + player + ", offense="
@@ -43,9 +43,7 @@ public class ChessBean  implements Comparable<ChessBean>{
 		this.sum = sum;
 	}
 
-	
-
-	public ChessBean(int x, int y, int player, int orderNumber ){
+	public ChessBean(int x, int y, int player, int orderNumber) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -61,7 +59,6 @@ public class ChessBean  implements Comparable<ChessBean>{
 		this.player = player;
 	}
 
-	
 	public int getX() {
 		return x;
 	}
@@ -87,12 +84,12 @@ public class ChessBean  implements Comparable<ChessBean>{
 	}
 
 	public int compareTo(ChessBean chessBean) {
-		
-		if(this.sum>chessBean.sum) {
+
+		if (this.sum > chessBean.sum) {
 			return -1;
-		}else if(this.sum<chessBean.sum) {
+		} else if (this.sum < chessBean.sum) {
 			return 1;
-		}else
+		} else
 			return 0;
 	}
 
@@ -103,6 +100,5 @@ public class ChessBean  implements Comparable<ChessBean>{
 	public void setBuffer(StringBuffer buffer) {
 		this.buffer = buffer;
 	}
-	
-	
+
 }
