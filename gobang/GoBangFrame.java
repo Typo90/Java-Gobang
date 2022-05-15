@@ -52,18 +52,24 @@ public class GoBangFrame extends JFrame {
 		jPanel1.add(textArea);
 		rightPanel.add(jPanel1);
 
+		// 新游戏
+		newGame = new JButton("开始游戏");
+		rightPanel.add(newGame);
+		newGame.addMouseListener(mouseListener); // 添加事件
+		this.add(rightPanel);
+
 		// 模式
 		JPanel jPanel2 = new JPanel();
 		jPanel2.setBorder(new TitledBorder("模式"));
 		ButtonGroup bg = new ButtonGroup(); // 两个选框互斥
 		renren = new JRadioButton("人人对战");
 		renji = new JRadioButton("人机对战");
-		renren.setSelected(true); // 默认人人对战
+		renji.setSelected(true); // 默认人机对战
 		bg.add(renren);
 		bg.add(renji);
 		jPanel2.add(renren);
 		jPanel2.add(renji);
-		rightPanel.add(jPanel2);
+		// rightPanel.add(jPanel2);
 
 		// 智能
 		JPanel jPanel3 = new JPanel();
@@ -96,16 +102,17 @@ public class GoBangFrame extends JFrame {
 		nudo = new JButton("悔棋");
 		jPanel5.setBorder(new TitledBorder("其他"));
 		JLabel jLabel3 = new JLabel("显示落子顺序：");
-		showNumber = new JCheckBox();
 		jPanel5.add(jLabel3);
+		showNumber = new JCheckBox();
 		jPanel5.add(showNumber);
 		showNumber.addMouseListener(mouseListener);
 		nudo.addMouseListener(mouseListener); // 添加事件
 		jPanel5.add(nudo);
 		rightPanel.add(jPanel5);
-		newGame = new JButton("新游戲");
-		rightPanel.add(newGame);
-		newGame.addMouseListener(mouseListener); // 添加事件
+
+		// newGame = new JButton("新游戲");
+		// rightPanel.add(newGame);
+		// newGame.addMouseListener(mouseListener); // 添加事件
 		this.add(rightPanel);
 
 		// 人机模式
