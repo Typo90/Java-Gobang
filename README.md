@@ -4,7 +4,9 @@
 
 将Java-Gobang整个文件夹以project形式打开
 
-**[Note]**推荐使用vscode，安装链接https://code.visualstudio.com/docs/languages/java
+[Note]推荐使用vscode，安装链接https://code.visualstudio.com/docs/languages/java
+
+## 启动
 
 执行 [GoBangTest.java](./gobang/GobangTest.java)中的main函数
 
