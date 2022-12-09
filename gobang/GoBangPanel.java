@@ -357,6 +357,7 @@ public class GoBangPanel extends JPanel {
 								currentPlayer = 3 - currentPlayer;
 								checkWin(a, b, chessBeans[a][b].getPlayer());
 								repaint();
+								long start = System.currentTimeMillis();
 								if (!checkWin(a, b, chessBeans[a][b].getPlayer())) {
 									// 电脑下棋，找到估值最大的
 									List<ChessBean> orderList = getSortList(currentPlayer, chessBeans);
@@ -368,6 +369,9 @@ public class GoBangPanel extends JPanel {
 									bean.setOrderNumber(count);
 									chessBeans[a][b] = bean;
 									System.out.println("黑子（电脑）下棋完毕");
+									long end = System.currentTimeMillis();
+									long elapsedTime = end - start;
+									System.out.println("下棋所用时间: " + elapsedTime + "ms");
 									currentPlayer = 3 - currentPlayer;
 									checkWin(a, b, chessBeans[a][b].getPlayer());
 								}
@@ -381,6 +385,8 @@ public class GoBangPanel extends JPanel {
 								System.out.println("白子下棋完毕");
 								currentPlayer = 3 - currentPlayer;
 								repaint();
+								long start = System.currentTimeMillis();
+
 								if (!checkWin(a, b, chessBeans[a][b].getPlayer())) {
 									// 电脑下棋，找到估值最大的
 									ChessBean bean;
@@ -402,7 +408,11 @@ public class GoBangPanel extends JPanel {
 									bean.setPlayer(currentPlayer);
 									bean.setOrderNumber(count);
 									chessBeans[a][b] = bean;
+									// some time passes
+									long end = System.currentTimeMillis();
+									long elapsedTime = end - start;
 									System.out.println("黑子(强电脑)下棋完毕");
+									System.out.println("下棋所用时间: " + elapsedTime + "ms");
 									// System.out.println(bean);
 									currentPlayer = 3 - currentPlayer;
 									checkWin(a, b, chessBeans[a][b].getPlayer());
@@ -480,25 +490,26 @@ public class GoBangPanel extends JPanel {
 		return d % 2 == 0 ? alpha : beta;
 	}
 
-	// protected ChessBean getValueByTrees(int d, int player, ChessBean[][] chessBeans) {
-	// 	ChessBean[][] tempBeans = clone(chessBeans);
-	// 	List<ChessBean> orderList = getSortList(player, tempBeans);
-	// 	if (d == level) {
-	// 		return orderList.get(0); // 达到搜索指定深度，结束。返回当前步骤中。获取到的估值最高的点。
-	// 	}
-	// 	for (int i = 0; i < orderList.size(); i++) {
-	// 		// 遍历当前棋盘上所有空余的位置（遍历getSortList）
-	// 		System.out.println("i" + i);
-	// 		ChessBean bean = orderList.get(i);
-	// 		if (bean.getSum() > Level.ALIVE_4.score) {
-	// 			return bean;
-	// 		} else {
-	// 			// 这个步骤是模拟下棋。不能再真正的棋盘上进行落子
-	// 			tempBeans[bean.getX()][bean.getY()].setPlayer(player);
-	// 			return getValueByTrees(d + 1, 3 - player, tempBeans);
-	// 		}
-	// 	}
-	// 	return null;
+	// protected ChessBean getValueByTrees(int d, int player, ChessBean[][]
+	// chessBeans) {
+	// ChessBean[][] tempBeans = clone(chessBeans);
+	// List<ChessBean> orderList = getSortList(player, tempBeans);
+	// if (d == level) {
+	// return orderList.get(0); // 达到搜索指定深度，结束。返回当前步骤中。获取到的估值最高的点。
+	// }
+	// for (int i = 0; i < orderList.size(); i++) {
+	// // 遍历当前棋盘上所有空余的位置（遍历getSortList）
+	// System.out.println("i" + i);
+	// ChessBean bean = orderList.get(i);
+	// if (bean.getSum() > Level.ALIVE_4.score) {
+	// return bean;
+	// } else {
+	// // 这个步骤是模拟下棋。不能再真正的棋盘上进行落子
+	// tempBeans[bean.getX()][bean.getY()].setPlayer(player);
+	// return getValueByTrees(d + 1, 3 - player, tempBeans);
+	// }
+	// }
+	// return null;
 	// }
 
 	private ChessBean[][] clone(ChessBean[][] chessBeans2) { // 克隆棋盤上所有棋子
